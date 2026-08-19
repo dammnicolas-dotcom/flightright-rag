@@ -50,6 +50,7 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 cp .env.example .env  # ANTHROPIC_API_KEY eintragen
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml  # APP_PASSWORD eintragen
 
 # Wissensbasis einmalig indexieren
 python src/ingest.py
@@ -57,6 +58,30 @@ python src/ingest.py
 # App starten
 streamlit run src/app.py
 ```
+
+Die App ist per Passwort geschützt (`APP_PASSWORD` in `.streamlit/secrets.toml`), damit nicht jeder mit dem Link unkontrolliert den hinterlegten `ANTHROPIC_API_KEY` verbraucht.
+
+## Deployment auf Streamlit Community Cloud
+
+Damit die App auch ohne laufenden lokalen Rechner erreichbar ist (z.B. für ein
+Bewerbungsgespräch):
+
+1. Repo zu GitHub pushen (bereits erledigt für dieses Repo).
+2. Auf [share.streamlit.io](https://share.streamlit.io) mit GitHub einloggen.
+3. **New app** → Repository `dammnicolas-dotcom/flightright-rag` auswählen
+   (bei privatem Repo: Zugriff für die Streamlit-GitHub-App im Dialog
+   erlauben) → Branch `main` → Main file path `src/app.py`.
+4. Unter **Advanced settings → Secrets** im TOML-Format eintragen:
+   ```toml
+   ANTHROPIC_API_KEY = "sk-ant-..."
+   APP_PASSWORD = "..."
+   ```
+   (Streamlit stellt diese Werte automatisch auch als Umgebungsvariablen
+   bereit, `generate.py` liest `ANTHROPIC_API_KEY` daher unverändert über
+   `os.environ`.)
+5. **Deploy** klicken. Der Wissensbasis-Index wird beim ersten Start
+   automatisch aufgebaut (`ensure_index_built()` in `app.py`), da
+   `data/processed/chroma/` bewusst nicht im Repo liegt.
 
 ## Features
 

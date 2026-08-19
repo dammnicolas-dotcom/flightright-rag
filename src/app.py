@@ -13,12 +13,68 @@ Drei zentrale UX-Entscheidungen (bewusst, nicht zufällig):
 import json
 import os
 
+import chromadb
 import streamlit as st
 
-from retrieve import retrieve
+from retrieve import retrieve, PERSIST_DIR, COLLECTION_NAME
 from generate import generate_answer
+from ingest import build_index, load_documents
 
 st.set_page_config(page_title="Fluggastrechte-Assistent", page_icon="✈️")
+
+
+def ensure_index_built() -> None:
+    """
+    data/processed/chroma/ ist bewusst nicht im Git-Repo (siehe .gitignore) -
+    auf einem frischen Deployment (z.B. Streamlit Community Cloud) existiert
+    daher noch kein Index. Baut ihn beim ersten Start automatisch aus
+    data/raw/ auf, statt dass das manuell per `python src/ingest.py`
+    passieren müsste.
+    """
+    client = chromadb.PersistentClient(path=PERSIST_DIR)
+    try:
+        client.get_collection(COLLECTION_NAME)
+    except Exception:
+        with st.spinner("Baue Wissensbasis-Index einmalig auf (kann kurz dauern)..."):
+            build_index(load_documents())
+
+
+def check_password() -> bool:
+    """
+    Zeigt eine Passwortabfrage, bevor die restliche App gerendert wird.
+    Verhindert, dass jeder mit dem öffentlichen App-Link unkontrolliert
+    Anfragen stellt und dabei den hinterlegten ANTHROPIC_API_KEY verbraucht.
+    Das Passwort liegt in st.secrets (.streamlit/secrets.toml lokal, bzw.
+    die Secrets-Verwaltung von Streamlit Community Cloud) - nie im Code.
+    """
+    if st.session_state.get("authenticated"):
+        return True
+
+    app_password = st.secrets.get("APP_PASSWORD")
+    if not app_password:
+        st.error(
+            "Kein APP_PASSWORD in den Secrets konfiguriert - die App ist "
+            "aktuell nicht durch ein Passwort geschützt. Bitte APP_PASSWORD "
+            "in .streamlit/secrets.toml (lokal) bzw. den Streamlit-Cloud-"
+            "Secrets hinterlegen."
+        )
+        return False
+
+    st.title("🔒 Fluggastrechte-Assistent")
+    password = st.text_input("Passwort", type="password")
+    if st.button("Anmelden", type="primary"):
+        if password == app_password:
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Falsches Passwort.")
+    return False
+
+
+if not check_password():
+    st.stop()
+
+ensure_index_built()
 
 st.title("✈️ Fluggastrechte-Assistent")
 st.caption(
