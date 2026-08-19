@@ -7,6 +7,9 @@ Normen- bzw. Urteilsverweis, keine freihändigen Behauptungen.
 
 > ⚠️ Dieses Tool dient der technischen Demonstration und ersetzt keine Rechtsberatung.
 
+**🔗 Live-Demo:** [flightright-rag-mdnjskkogjm2acvcaydpkm.streamlit.app](https://flightright-rag-mdnjskkogjm2acvcaydpkm.streamlit.app)
+(passwortgeschützt, siehe [Deployment](#deployment-auf-streamlit-community-cloud))
+
 ## Warum dieses Projekt
 
 Fluggastrechte sind ein eng abgegrenzter, aber praktisch hoch relevanter
@@ -63,8 +66,13 @@ Die App ist per Passwort geschützt (`APP_PASSWORD` in `.streamlit/secrets.toml`
 
 ## Deployment auf Streamlit Community Cloud
 
-Damit die App auch ohne laufenden lokalen Rechner erreichbar ist (z.B. für ein
-Bewerbungsgespräch):
+**Status: bereits live** unter
+[flightright-rag-mdnjskkogjm2acvcaydpkm.streamlit.app](https://flightright-rag-mdnjskkogjm2acvcaydpkm.streamlit.app)
+— erreichbar auch ohne laufenden lokalen Rechner (z.B. für ein
+Bewerbungsgespräch). Bei jedem Push auf `main` deployt Streamlit automatisch
+neu.
+
+So wurde es eingerichtet (relevant z.B. bei einem Fork oder Neuaufsetzen):
 
 1. Repo zu GitHub pushen (bereits erledigt für dieses Repo).
 2. Auf [share.streamlit.io](https://share.streamlit.io) mit GitHub einloggen.
