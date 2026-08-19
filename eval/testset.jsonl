@@ -1,0 +1,15 @@
+{"question": "Mein Flug hatte 4 Stunden Verspätung, bekomme ich eine Entschädigung?", "expected_source": "EuGH, Sturgeon, C-402/07 / Art. 7 VO 261/2004"}
+{"question": "Was zählt als außergewöhnlicher Umstand, der einen Ausgleichsanspruch ausschließt?", "expected_source": "EuGH, Wallentin-Hermann, C-549/07 / Art. 5 Abs. 3 VO 261/2004"}
+{"question": "Muss die Fluggesellschaft mich informieren, wenn mein Flug annulliert wird?", "expected_source": "Art. 5 Abs. 1 lit. c VO 261/2004"}
+{"question": "Mein Flug war überbucht, ich wurde trotz rechtzeitigem Check-in am Gate abgewiesen. Habe ich Anspruch auf Ausgleichszahlung?", "expected_source": "Art. 4 VO 261/2004 (Nichtbeförderung)"}
+{"question": "Die Fluggesellschaft hat mich ohne mein Einverständnis auf einen Flug am nächsten Tag umgebucht. Was steht mir zu?", "expected_source": "Art. 5 VO 261/2004 (Annullierung) / Art. 9 VO 261/2004"}
+{"question": "Wegen der Verspätung meines Zubringerflugs habe ich meinen Anschlussflug verpasst und kam 5 Stunden später am Ziel an. Habe ich Anspruch auf Ausgleich, obwohl der einzelne Flug pünktlich war?", "expected_source": "Art. 7 VO 261/2004 / EuGH Sturgeon, C-402/07"}
+{"question": "Mein Flug wurde annulliert, weil ein Großteil der Crew spontan 'krank' wurde, nachdem Umstrukturierungen angekündigt wurden. Ist das ein außergewöhnlicher Umstand?", "expected_source": "EuGH, Krüsemann u.a./TUIfly, C-195/17"}
+{"question": "Mein Flug ist wegen eines Streiks der Fluglotsen ausgefallen. Bekomme ich trotzdem eine Ausgleichszahlung?", "expected_source": "VO 261/2004, Erwägungsgrund 14 / Art. 5 Abs. 3"}
+{"question": "Mein Flug wurde wegen eines schweren Unwetters annulliert. Habe ich Anspruch auf Entschädigung?", "expected_source": "VO 261/2004, Erwägungsgrund 14 / Art. 5 Abs. 3"}
+{"question": "Ich hatte Business Class gebucht, wurde aber kurzfristig in die Economy Class herabgestuft. Steht mir eine Erstattung zu?", "expected_source": "Art. 10 VO 261/2004"}
+{"question": "Ich habe eine Pauschalreise gebucht und mein Flug wurde annulliert. Gilt die Fluggastrechte-Verordnung trotzdem?", "expected_source": "Art. 3 Abs. 6 VO 261/2004 / Art. 8 Abs. 2 VO 261/2004"}
+{"question": "Mein Flug fiel wegen eines unerwarteten technischen Defekts aus, der auch bei der letzten Routinewartung nicht erkennbar war. Ist das ein außergewöhnlicher Umstand?", "expected_source": "EuGH, van der Lans, C-257/14"}
+{"question": "Wie viel Entschädigung bekomme ich für einen Langstreckenflug über 3500 km, der ohne rechtzeitige Ankündigung annulliert wurde?", "expected_source": "Art. 7 Abs. 1 lit. c VO 261/2004"}
+{"question": "Kann ich statt einer Ersatzverbindung auch die volle Erstattung meines Tickets verlangen, wenn mein Flug annulliert wurde?", "expected_source": "Art. 8 Abs. 1 lit. a VO 261/2004"}
+{"question": "Bekomme ich nach dieser Verordnung auch Schadensersatz für meinen verlorenen Koffer?", "expected_source": "keine passende Quelle in der Wissensbasis (Gepäckschäden fallen unter das Montrealer Übereinkommen, nicht unter VO 261/2004)"}

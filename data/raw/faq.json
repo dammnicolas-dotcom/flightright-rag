@@ -1,0 +1,72 @@
+[
+  {
+    "id": "faq-verspaetung-4h",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Verspätung über 3 Stunden",
+    "url": null,
+    "text": "Frage: Mein Flug hatte 4 Stunden Verspätung, bekomme ich eine Entschädigung? Antwort: Bei einer Ankunftsverspätung von 3 Stunden oder mehr besteht grundsätzlich ein Ausgleichsanspruch nach Art. 7 VO 261/2004 (gestützt auf die Sturgeon-Rechtsprechung, EuGH C-402/07), sofern die Verspätung nicht auf außergewöhnliche Umstände nach Art. 5 Abs. 3 zurückzuführen ist."
+  },
+  {
+    "id": "faq-verspaetung-unter-3h",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Verspätung unter 3 Stunden",
+    "url": null,
+    "text": "Frage: Mein Flug war 2 Stunden verspätet, bekomme ich trotzdem Geld? Antwort: Nein. Ein Ausgleichsanspruch nach Art. 7 VO 261/2004 entsteht laut der Sturgeon-Rechtsprechung (EuGH C-402/07) erst ab einem Zeitverlust von 3 Stunden oder mehr am Endziel. Bei einer Verspätung von 2 Stunden oder mehr (bzw. ab 4 Stunden bei sehr langen Flügen) besteht aber nach Art. 6 i.V.m. Art. 9 VO 261/2004 ein Anspruch auf Betreuungsleistungen wie Mahlzeiten, Erfrischungen und ggf. Kommunikationsmittel."
+  },
+  {
+    "id": "faq-nichtbefoerderung-overbooking",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Nichtbeförderung wegen Überbuchung",
+    "url": null,
+    "text": "Frage: Mein Flug war überbucht und ich wurde am Gate abgewiesen, obwohl ich rechtzeitig eingecheckt war. Was steht mir zu? Antwort: Das ist ein Fall der Nichtbeförderung gegen den Willen des Fluggastes gemäß Art. 4 VO 261/2004. Voraussetzung ist, dass zunächst freiwillige Verzichtende gesucht werden mussten (Art. 4 Abs. 1); wird dennoch gegen den Willen des Fluggastes die Beförderung verweigert, hat dieser Anspruch auf sofortige Ausgleichszahlung nach Art. 7 sowie auf Unterstützung (Betreuung, Erstattung oder anderweitige Beförderung) nach Art. 8 und Art. 9 VO 261/2004 - unabhängig vom Grund der Überbuchung, außergewöhnliche Umstände können hier nicht eingewendet werden."
+  },
+  {
+    "id": "faq-eigenmaechtige-umbuchung",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Eigenmächtige Umbuchung durch die Fluggesellschaft",
+    "url": null,
+    "text": "Frage: Die Airline hat mich ohne mein Einverständnis auf einen späteren Flug am nächsten Tag umgebucht. Was kann ich tun? Antwort: Wird ein gebuchter Flug durch das Luftfahrtunternehmen nicht durchgeführt, handelt es sich um eine Annullierung im Sinne von Art. 2 lit. l und Art. 5 VO 261/2004, auch wenn eine Ersatzverbindung angeboten wird. Erfolgt die Ankunft mit dem Ersatzflug erheblich später als ursprünglich geplant, besteht - je nach Vorlaufzeit der Ankündigung und Ankunftsdifferenz gemäß Art. 5 Abs. 1 lit. c - ein Ausgleichsanspruch nach Art. 7, zusätzlich zu den Betreuungsleistungen nach Art. 9 (u.a. Hotelunterbringung bei Übernachtung)."
+  },
+  {
+    "id": "faq-anschlussflug-verpasst",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Anschlussflug wegen Verspätung des Zubringerflugs verpasst",
+    "url": null,
+    "text": "Frage: Mein Zubringerflug hatte Verspätung, ich habe deshalb meinen Anschlussflug verpasst und bin insgesamt 5 Stunden später am Endziel angekommen. Kann ich Ausgleich verlangen, obwohl der einzelne Flug pünktlich war? Antwort: Ja, sofern beide Flüge Teil einer einzigen Buchung mit einem durchgehenden Flugschein waren. Maßgeblich für den Ausgleichsanspruch nach Art. 7 VO 261/2004 ist gemäß Art. 2 lit. h und der Sturgeon-/EuGH-Rechtsprechung die Ankunftsverspätung am Endziel, nicht die Verspätung des einzelnen Teilflugs. Bei 5 Stunden Verspätung am Endziel besteht daher grundsätzlich ein Anspruch, sofern kein außergewöhnlicher Umstand nach Art. 5 Abs. 3 vorlag."
+  },
+  {
+    "id": "faq-wilder-streik-eigenes-personal",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Spontaner Streik des eigenen Personals",
+    "url": null,
+    "text": "Frage: Mein Flug wurde annulliert, weil ein Großteil der Crew der Airline spontan 'krank' wurde, nachdem die Airline Umstrukturierungen angekündigt hatte. Zählt das als außergewöhnlicher Umstand? Antwort: Nein. Der EuGH hat in der Rechtssache Krüsemann u.a./TUIfly (C-195/17) entschieden, dass ein 'wilder Streik' (spontane, nicht gewerkschaftlich organisierte Arbeitsniederlegung eigenen Personals als Reaktion auf eine unternehmerische Entscheidung) keinen außergewöhnlichen Umstand im Sinne von Art. 5 Abs. 3 VO 261/2004 darstellt, da Personalkonflikte Teil der normalen Ausübung der Tätigkeit eines Luftfahrtunternehmens sind. Es besteht daher grundsätzlich ein Ausgleichsanspruch nach Art. 7."
+  },
+  {
+    "id": "faq-streik-drittpersonal-fluglotsen",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Streik von Fluglotsen oder Flughafenpersonal",
+    "url": null,
+    "text": "Frage: Mein Flug ist wegen eines Streiks der Fluglotsen ausgefallen. Bekomme ich trotzdem eine Ausgleichszahlung? Antwort: Streiks, die den Betrieb eines Luftfahrtunternehmens beeinträchtigen, werden in Erwägungsgrund 14 der VO 261/2004 ausdrücklich als Beispiel für außergewöhnliche Umstände im Sinne von Art. 5 Abs. 3 genannt. Ein Streik von Fluglotsen oder anderem, nicht beim ausführenden Luftfahrtunternehmen angestelltem Personal, entzieht sich der tatsächlichen Kontrolle der Airline; ein Ausgleichsanspruch nach Art. 7 entfällt in der Regel, sofern die Airline nachweisen kann, dass sie alle zumutbaren Maßnahmen ergriffen hat. Der Anspruch auf Betreuungsleistungen nach Art. 9 (Verpflegung, ggf. Hotel) bleibt davon unberührt."
+  },
+  {
+    "id": "faq-wetter-aussergewoehnlicher-umstand",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Annullierung wegen Unwetter",
+    "url": null,
+    "text": "Frage: Mein Flug wurde wegen eines schweren Unwetters annulliert. Habe ich Anspruch auf Ausgleichszahlung? Antwort: In der Regel nein. Mit der Durchführung des Fluges nicht zu vereinbarende Wetterbedingungen werden in Erwägungsgrund 14 der VO 261/2004 ausdrücklich als Beispiel für außergewöhnliche Umstände nach Art. 5 Abs. 3 genannt. Kann das Luftfahrtunternehmen nachweisen, dass die Annullierung tatsächlich witterungsbedingt und auch bei zumutbaren Maßnahmen nicht vermeidbar war, entfällt der Ausgleichsanspruch nach Art. 7. Ansprüche auf Betreuung (Art. 9) sowie Erstattung oder anderweitige Beförderung (Art. 8) bestehen aber weiterhin."
+  },
+  {
+    "id": "faq-downgrade",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Herabstufung in eine niedrigere Klasse",
+    "url": null,
+    "text": "Frage: Ich hatte Business Class gebucht, wurde aber kurzfristig in die Economy Class herabgestuft. Steht mir etwas zu? Antwort: Ja. Nach Art. 10 Abs. 2 VO 261/2004 muss das Luftfahrtunternehmen bei einer Herabstufung (Downgrade) innerhalb von sieben Tagen einen Teil des Flugpreises erstatten: 30 % bei Flügen bis 1500 km, 50 % bei innergemeinschaftlichen Flügen über 1500 km bzw. anderen Flügen zwischen 1500 und 3500 km, und 75 % bei allen längeren Flügen. Dieser Anspruch besteht unabhängig von Verspätung oder Annullierung."
+  },
+  {
+    "id": "faq-pauschalreise-flugausfall",
+    "doc_type": "faq",
+    "source": "Praxisbeispiel: Flugausfall im Rahmen einer Pauschalreise",
+    "url": null,
+    "text": "Frage: Ich habe eine Pauschalreise gebucht und der Flug wurde annulliert. Gilt die Fluggastrechte-Verordnung trotzdem? Antwort: Ja. Nach Art. 3 Abs. 6 VO 261/2004 berührt die Verordnung nicht die Fluggastrechte aus der Pauschalreise-Richtlinie; die Ansprüche auf Ausgleichsleistung nach Art. 7 und Betreuung nach Art. 9 bestehen bei Annullierung eines Fluges auch dann, wenn dieser Teil einer Pauschalreise war. Lediglich die Erstattung des Flugscheinpreises nach Art. 8 Abs. 1 lit. a kann entfallen, wenn hierfür bereits ein Anspruch aus der Pauschalreiserichtlinie besteht (Art. 8 Abs. 2), um eine doppelte Erstattung zu vermeiden."
+  }
+]
