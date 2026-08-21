@@ -16,8 +16,9 @@ import os
 import chromadb
 import streamlit as st
 
-from retrieve import retrieve, PERSIST_DIR, COLLECTION_NAME
-from generate import generate_answer
+from agents.chat_agent import handle_question
+from agents.orchestrator import run as orchestrator_run
+from retrieve import PERSIST_DIR, COLLECTION_NAME
 from ingest import build_index, load_documents
 
 st.set_page_config(page_title="Fluggastrechte-Assistent", page_icon="✈️")
@@ -96,28 +97,8 @@ with tab_chat:
     )
 
     if st.button("Fragen", type="primary") and question:
-        with st.spinner("Suche relevante Quellen..."):
-            chunks = retrieve(question, k=6)
-
-        if show_chunks:
-            st.subheader("Retrievte Chunks")
-            for c in chunks:
-                with st.expander(f"{c['source']} (Distanz: {c['distance']:.3f})"):
-                    st.write(c["text"])
-
-        with st.spinner("Formuliere Antwort..."):
-            answer = generate_answer(question, chunks)
-
-        st.subheader("Antwort")
-        st.write(answer)
-
-        st.subheader("Quellen")
-        for c in chunks:
-            label = f"**{c['source']}**"
-            if c["url"]:
-                st.markdown(f"- {label} — [Quelle]({c['url']})")
-            else:
-                st.markdown(f"- {label}")
+        with st.status("Anfrage wird bearbeitet…", expanded=True) as status:
+            handle_question(question, status, show_chunks)
 
 with tab_eval:
     st.write(
@@ -136,8 +117,10 @@ with tab_eval:
         if st.button("Eval-Set durchlaufen"):
             for tc in testcases:
                 st.markdown(f"**Frage:** {tc['question']}")
-                chunks = retrieve(tc["question"], k=6)
-                answer = generate_answer(tc["question"], chunks)
-                st.write(answer)
-                st.caption(f"Erwartete Quelle: {tc.get('expected_source', '–')}")
+                result = orchestrator_run(tc["question"], on_step=lambda *_: None)
+                st.write(result.answer)
+                st.caption(
+                    f"Erwartete Quelle: {tc.get('expected_source', '–')} · "
+                    f"beantwortet von: {result.agent}"
+                )
                 st.divider()

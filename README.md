@@ -20,18 +20,38 @@ zentralen Anforderungen an Legal-Tech-Anwendungen.
 
 ## Architektur
 
+Multi-Agenten-System: ein Orchestrator klassifiziert jede Anfrage und routet sie an
+einen von zwei Spezialagenten. Welcher Agent gerade was tut, ist in der UI live als
+Agent-Flow sichtbar (Streamlit `st.status`).
+
+**📐 Interaktives Architekturdiagramm:** [claude.ai/code/artifact/c903f5a7-c46c-4928-926d-719965d6782a](https://claude.ai/code/artifact/c903f5a7-c46c-4928-926d-719965d6782a)
+
 ```
-Nutzerfrage
-    │
-    ▼
-[Retrieval]  ──►  Chroma Vector Store  ──►  Top-k relevante Chunks
-    │                                       (VO-Artikel / Urteile / FAQ)
-    ▼
-[Generation]  ──►  Claude API (mit Chunks als Kontext)
-    │
-    ▼
-Antwort + Quellenangabe(n)
+Fluggast ──► Chat-Agent ──► Orchestrator ──► Klassifikationsagent
+                                  │
+                    ┌─────────────┴─────────────┐
+                    ▼                           ▼
+             Retrieval-Agent               EU261-Agent
+                    │                     │           │
+             Chroma Vector Store    Chroma Vector   AviationStack
+             (VO-Art. / Urteile /   Store (VO/EuGH) (echter Flugstatus:
+              FAQ)                                   Verspätung/Annullierung)
 ```
+
+- **Klassifikationsagent** entscheidet: allgemeine Fluggastrechte-Frage vs. konkrete
+  Entschädigungsprüfung zu einem bestimmten Flug (und extrahiert dabei Flugnummer +
+  Datum, falls vorhanden).
+- **Retrieval-Agent** beantwortet allgemeine Fragen wie bisher rein aus der
+  Wissensbasis.
+- **EU261-Agent** holt zusätzlich den echten Flugstatus über die AviationStack-API ab
+  und bewertet den Ausgleichsanspruch anhand von Flugfakten + einschlägigen
+  Rechtsauszügen. Fehlen Flugnummer/Datum in der Frage, fragt der Orchestrator gezielt
+  nach, statt zu raten.
+- **Chat-Agent** übernimmt Dialogführung und finale Antwortaufbereitung in der UI.
+
+Nicht Teil des aktuellen Umfangs: ein **Buchungsagent** mit echtem PNR-Zugriff (keine
+erreichbare, nicht-proprietäre Datenquelle dafür vorhanden) und ein
+**Eskalationsagent** für Human Handoff (kein Ticket-System angebunden) — siehe Roadmap.
 
 **Wissensbasis** (`data/raw/`):
 - VO (EG) Nr. 261/2004 — Volltext, pro Artikel gechunkt
@@ -52,7 +72,7 @@ python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-cp .env.example .env  # ANTHROPIC_API_KEY eintragen
+cp .env.example .env  # ANTHROPIC_API_KEY + AVIATIONSTACK_API_KEY eintragen
 cp .streamlit/secrets.toml.example .streamlit/secrets.toml  # APP_PASSWORD eintragen
 
 # Wissensbasis einmalig indexieren
@@ -82,6 +102,7 @@ So wurde es eingerichtet (relevant z.B. bei einem Fork oder Neuaufsetzen):
 4. Unter **Advanced settings → Secrets** im TOML-Format eintragen:
    ```toml
    ANTHROPIC_API_KEY = "sk-ant-..."
+   AVIATIONSTACK_API_KEY = "..."
    APP_PASSWORD = "..."
    ```
    (Streamlit stellt diese Werte automatisch auch als Umgebungsvariablen
@@ -93,6 +114,11 @@ So wurde es eingerichtet (relevant z.B. bei einem Fork oder Neuaufsetzen):
 
 ## Features
 
+- **Agent-Flow live sichtbar** — die UI zeigt während jeder Anfrage schrittweise, welcher
+  Agent gerade was tut (Klassifikation → Retrieval- oder EU261-Agent → Chat-Agent)
+- **Echter Flugstatus für Entschädigungsfragen** — der EU261-Agent prüft bei Fragen zu
+  einem konkreten Flug den tatsächlichen Verspätungs-/Annullierungsstatus über eine
+  externe API, statt nur allgemein zu antworten
 - **Quellenangaben unter jeder Antwort** — welcher Artikel / welches Urteil /
   welcher FAQ-Eintrag tatsächlich zur Antwort beigetragen hat
 - **Retrieval-Ansicht** — Umschalten zwischen finaler Antwort und den rohen
@@ -108,10 +134,17 @@ flightright-rag/
 │   ├── raw/            # Quelldokumente (VO-Text, Urteile, FAQ)
 │   └── processed/       # gechunkte + indexierte Daten
 ├── src/
-│   ├── ingest.py         # Chunking + Embedding + Indexierung
-│   ├── retrieve.py       # Retrieval-Logik
-│   ├── generate.py       # Claude-API-Aufruf mit Kontext
-│   └── app.py             # Streamlit-Frontend
+│   ├── agents/
+│   │   ├── classifier.py       # Klassifikationsagent
+│   │   ├── orchestrator.py     # Orchestrator (reine Routing-Logik)
+│   │   ├── retrieval_agent.py  # allgemeine Fragen (RAG)
+│   │   ├── eu261_agent.py      # Entschädigungsprüfung mit echtem Flugstatus
+│   │   └── chat_agent.py       # Streamlit-Glue: Agent-Flow-UI + Antwortaufbereitung
+│   ├── flight_status.py  # AviationStack-Client für den EU261-Agent
+│   ├── ingest.py          # Chunking + Embedding + Indexierung
+│   ├── retrieve.py        # Retrieval-Logik
+│   ├── generate.py        # Claude-API-Aufruf mit Kontext (Retrieval-Agent-Pfad)
+│   └── app.py              # Streamlit-Frontend (Layout/Tabs)
 ├── eval/
 │   └── testset.jsonl     # Testfragen mit erwarteter Antwort/Quelle
 ├── requirements.txt
@@ -125,8 +158,16 @@ flightright-rag/
 - [x] FAQ-Fallbeispiele aus Praxiserfahrung ergänzen (data/raw/faq.json)
 - [x] Eval-Set mit 10–15 Testfragen aufbauen (eval/testset.jsonl, 15 Fragen)
 - [x] Confidence-Anzeige, wenn Retrieval keine passenden Chunks findet (Distanz-Schwellenwert in retrieve.py, fester Fallback-Text in generate.py statt API-Call)
+- [x] Multi-Agenten-Architektur: Orchestrator + Klassifikationsagent routen zwischen
+      Retrieval-Agent (allgemeine Fragen) und EU261-Agent (Entschädigungsprüfung mit
+      echtem Flugstatus über AviationStack); Agent-Flow live in der UI sichtbar
 - [ ] Embedding-Modell gegen ein für Deutsch optimiertes Modell tauschen (aktuell all-MiniLM-L6-v2, englisch trainiert – TODO in ingest.py)
+- [ ] Buchungsagent mit echtem PNR-Zugriff — zurückgestellt: es gibt keine öffentlich
+      erreichbare, nicht-proprietäre Datenquelle für personenbezogene Buchungsdaten
+      (Zugriff liefe nur über authentifizierte Airline-/GDS-Systeme wie Amadeus/Sabre)
+- [ ] Eskalationsagent (Human Handoff) — zurückgestellt: kein Ticket-/Support-System
+      vorhanden, an das übergeben werden könnte
 
 ## Tech Stack
 
-Python · Chroma · Claude API · Streamlit
+Python · Chroma · Claude API · Streamlit · AviationStack
