@@ -10,6 +10,12 @@ vergangene Flüge ggf. ein (historische Daten sind teils kostenpflichtig) -
 Nutzerfragen beziehen sich aber meist auf einen bereits stattgefundenen Flug.
 Das äußert sich hier als FlightStatusUnavailable mit einer erklärenden
 Meldung, nicht als Absturz oder stille Fehlantwort.
+
+Für zuverlässiges Testen/Demos unabhängig vom AviationStack-Tarif (z.B. live
+in einem Bewerbungsgespräch, wo eine externe API nicht ausfallen darf) gibt
+es fest hinterlegte Demo-Flugnummern in MOCK_FLIGHTS. Diese greifen VOR dem
+echten API-Call und decken die drei für die Anspruchsprüfung relevanten
+Fälle ab: deutliche Verspätung, pünktlich, Annullierung.
 """
 
 import os
@@ -20,6 +26,27 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_URL = "http://api.aviationstack.com/v1/flights"
+
+MOCK_FLIGHTS = {
+    "LH9991": {  # > 3h Verspätung -> Ausgleichsanspruch wahrscheinlich (EuGH Sturgeon)
+        "status": "landed",
+        "delay_minutes": 240,
+        "departure_airport": "Frankfurt am Main",
+        "arrival_airport": "New York JFK",
+    },
+    "LH9992": {  # pünktlich -> kein Ausgleichsanspruch
+        "status": "landed",
+        "delay_minutes": 15,
+        "departure_airport": "Frankfurt am Main",
+        "arrival_airport": "Berlin Brandenburg",
+    },
+    "LH9993": {  # annulliert -> Ausgleichsanspruch abhängig von Vorlaufzeit/Umständen
+        "status": "cancelled",
+        "delay_minutes": 0,
+        "departure_airport": "München",
+        "arrival_airport": "London Heathrow",
+    },
+}
 
 
 class FlightStatusUnavailable(Exception):
@@ -49,6 +76,10 @@ class FlightStatus:
 
 
 def get_flight_status(flight_number: str, date: str) -> FlightStatus:
+    mock = MOCK_FLIGHTS.get(flight_number.strip().upper())
+    if mock is not None:
+        return FlightStatus(flight_number=flight_number, date=date, **mock)
+
     api_key = os.environ.get("AVIATIONSTACK_API_KEY")
     if not api_key:
         raise FlightStatusUnavailable(
